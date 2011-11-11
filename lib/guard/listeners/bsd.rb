@@ -59,14 +59,11 @@ module Guard
     # @param [String] directory the directory to watch
     #
     def watch(directory)
-      # Only watches specific files. Doesn't know about new files.
-      all_files.each do |file|
-        GuardWatcher.new(file, nil) do |file_path|
-          paths = [File.dirname(file_path)]
-          files = modified_files(paths, :all => true)
-          @callback.call(files) unless files.empty?
-        end.attach(worker)
-      end
+      GuardWatcher.new(directory) do |file_path|
+        paths = [File.dirname(file_path)]
+        files = modified_files(paths, :all => true)
+        @callback.call(files) unless files.empty?
+      end.attach(worker)
     end
 
     # Get the listener worker.
