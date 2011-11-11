@@ -1,13 +1,7 @@
 require 'spec_helper'
-require 'guard/listeners/windows'
+require 'guard/listeners/bsd'
 
-describe Guard::Windows do
-
-  if bsd?
-    it "isn't usable on bsd" do
-      described_class.should_not be_usable
-    end
-  end
+describe Guard::Bsd do
 
   if linux?
     it "isn't usable on linux" do
@@ -22,7 +16,13 @@ describe Guard::Windows do
   end
 
   if windows?
-    it "is usable on Windows 2000 and later" do
+    it "isn't usable on windows" do
+      described_class.should_not be_usable
+    end
+  end
+
+  if bsd?
+    it "is usable on FreeBSD" do
       described_class.should be_usable
     end
 

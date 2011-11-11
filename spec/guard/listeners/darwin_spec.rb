@@ -3,6 +3,12 @@ require 'guard/listeners/darwin'
 
 describe Guard::Darwin do
 
+  if bsd?
+    it "isn't usable on bsd" do
+      described_class.should_not be_usable
+    end
+  end
+
   if windows?
     it "isn't usable on windows" do
       described_class.should_not be_usable

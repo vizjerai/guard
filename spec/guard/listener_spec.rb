@@ -6,6 +6,13 @@ describe Guard::Listener do
     before(:each) { @target_os = RbConfig::CONFIG['target_os'] }
     after(:each) { RbConfig::CONFIG['target_os'] = @target_os }
 
+    it 'uses the Bsd listener on FreeBSD' do
+      RbConfig::CONFIG['target_os'] = 'freebsd'
+      Guard::Bsd.stub(:usable?).and_return(true)
+      Guard::Bsd.should_receive(:new)
+      described_class.select_and_init
+    end
+
     it 'uses the Darwin listener on Mac OS X' do
       RbConfig::CONFIG['target_os'] = 'darwin10.4.0'
       Guard::Darwin.stub(:usable?).and_return(true)

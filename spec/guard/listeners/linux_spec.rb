@@ -4,6 +4,12 @@ require 'guard/listeners/linux'
 
 describe Guard::Linux do
 
+  if bsd?
+    it "isn't usable on bsd" do
+      described_class.should_not be_usable
+    end
+  end
+
   if mac?
     it "isn't usable on 10.6" do
       described_class.should_not be_usable

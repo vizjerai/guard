@@ -3,6 +3,7 @@ require 'digest/sha1'
 
 module Guard
 
+  autoload :Bsd,     'guard/listeners/bsd'
   autoload :Darwin,  'guard/listeners/darwin'
   autoload :Linux,   'guard/listeners/linux'
   autoload :Windows, 'guard/listeners/windows'
@@ -38,6 +39,8 @@ module Guard
         Linux.new(*args)
       elsif windows? && Windows.usable?
         Windows.new(*args)
+      elsif bsd? && Bsd.usable?
+        Bsd.new(*args)
       else
         UI.info 'Using polling (Please help us to support your system better than that).'
         Polling.new(*args)
@@ -320,6 +323,14 @@ module Guard
     #
     def sha1_checksum(path)
       Digest::SHA1.file(path).to_s
+    end
+
+    # Test if the OS is BSD.
+    #
+    # @return [Boolean] Whether the OS is BSD
+    #
+    def self.bsd?
+      RbConfig::CONFIG['target_os'] =~ /bsd/i
     end
 
     # Test if the OS is Mac OS X.

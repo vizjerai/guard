@@ -20,4 +20,6 @@ elsif RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
   gem 'win32console', :require => false
   gem 'rb-fchange', '>= 0.0.2', :require => false
   gem 'rb-notifu', '>= 0.0.4', :require => false
+elsif RbConfig::CONFIG['target_os'] =~ /bsd/i
+  gem 'cool.io', '>= 0.1.0', :require => false
 end

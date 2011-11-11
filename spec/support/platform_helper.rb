@@ -1,3 +1,7 @@
+def bsd?
+  RbConfig::CONFIG['target_os'] =~ /bsd/i
+end
+
 def mac?
   RbConfig::CONFIG['target_os'] =~ /darwin/i
 end
